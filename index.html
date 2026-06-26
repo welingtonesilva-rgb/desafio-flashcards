@@ -3,59 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desafio Flashcards - Fact Checking</title>
+    <title>VerificaFato | Portal Oficial de Checagem de Notícias</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <header>
-        <h1>Desafio Fact-Checking</h1>
-        <p>Passe o mouse (ou toque) nos cartões para descobrir a verdade!</p>
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <span>Agência de Jornalismo Independente</span>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </label>
+                <span id="theme-text">Modo Escuro</span>
+            </div>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Verifica<span>Fato</span></h1>
+                    <small>A verdade em primeiro lugar</small>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="active">Home</a>
+                <a href="#">Últimas Checagens</a>
+                <a href="#">Sobre Nós</a>
+                <a href="#">Metodologia</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar notícia...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="btn-report">Denunciar Boato</button>
+            </div>
+        </div>
     </header>
 
+    <section class="hero-section">
+        <h2>Painel de Monitoramento de Desinformação</h2>
+        <p>Analisamos boatos que circulam nas redes sociais para trazer dados checados com base em fatos e fontes oficiais.</p>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>1,240</h3>
+                <p>Notícias Analisadas</p>
+            </div>
+            <div class="stat-card falso-text">
+                <h3>842</h3>
+                <p>Fakes Derrubadas</p>
+            </div>
+            <div class="stat-card verdadeiro-text">
+                <h3>398</h3>
+                <p>Verdadeiras Confirmadas</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="filter-bar">
+        <button class="filter-btn active">Todos os Fatos</button>
+        <button class="filter-btn"><i class="fas fa-check-circle text-success"></i> Verdadeiros</button>
+        <button class="filter-btn"><i class="fas fa-times-circle text-danger"></i> Falsos</button>
+    </div>
+
     <main class="container">
+        
         <div class="flashcard">
+            <div class="card-badge badge-falso">FALSO</div>
             <div class="card-inner">
                 <div class="card-front">
-                    <h2>Manchete 1</h2>
-                    <p>"Estudo prova que comer chocolate antes de dormir queima gordura acumulada."</p>
+                    <span class="card-category">Saúde & Bem-estar</span>
+                    <p class="headline">"Estudo científico prova que comer chocolate antes de dormir derrete gordura abdominal."</p>
+                    <div class="card-footer">
+                        <span><i class="far fa-clock"></i> Há 2 horas</span>
+                        <span class="flip-hint">Passar o mouse para checar <i class="fas fa-sync-alt"></i></span>
+                    </div>
                 </div>
                 <div class="card-back falso">
-                    <h2>FALSO ❌</h2>
-                    <p>Embora o cacau tenha benefícios, não há comprovação científica de que comer chocolate antes de dormir queime gordura. Trata-se de um mito que distorceu pesquisas sobre o metabolismo.</p>
-                    <span>Fonte: Agência Lupa</span>
+                    <div class="back-header">
+                        <i class="fas fa-times-circle status-icon"></i>
+                        <h2>CONTEÚDO FALSO</h2>
+                    </div>
+                    <p class="explanation">Embora o cacau puro possua propriedades antioxidantes benéficas, não existe nenhum estudo que comprove que o consumo de chocolate antes de dormir queime gordura. O boato distorceu uma pesquisa sobre metabolismo celular.</p>
+                    <div class="source-info">
+                        <strong>Fonte da Checagem:</strong> Agência Lupa
+                        <a href="#" class="btn-source">Ver Relatório Completo</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="flashcard">
+            <div class="card-badge badge-verdadeiro">VERDADEIRO</div>
             <div class="card-inner">
                 <div class="card-front">
-                    <h2>Manchete 2</h2>
-                    <p>"Cientistas criam plástico biodegradável a partir de cascas de camarão."</p>
+                    <span class="card-category">Ciência & Meio Ambiente</span>
+                    <p class="headline">"Cientistas desenvolvem plástico 100% biodegradável utilizando carapaças descartadas de camarão."</p>
+                    <div class="card-footer">
+                        <span><i class="far fa-clock"></i> Há 5 horas</span>
+                        <span class="flip-hint">Passar o mouse para checar <i class="fas fa-sync-alt"></i></span>
+                    </div>
                 </div>
                 <div class="card-back verdadeiro">
-                    <h2>VERDADEIRO  </h2>
-                    <p>Pesquisadores desenvolveram um bioplástico utilizando a quitosana, um material extraído da carapaça de crustáceos, como alternativa sustentável ao plástico comum.</p>
-                    <span>Fonte: Aos Fatos</span>
+                    <div class="back-header">
+                        <i class="fas fa-check-circle status-icon"></i>
+                        <h2>VERDADEIRO</h2>
+                    </div>
+                    <p class="explanation">Pesquisadores de bioengenharia conseguiram extrair quitosana do exoesqueleto de crustáceos para criar um material maleável, resistente e que se decompõe em poucas semanas na natureza, servindo de adubo.</p>
+                    <div class="source-info">
+                        <strong>Fonte da Checagem:</strong> Aos Fatos
+                        <a href="#" class="btn-source">Ver Relatório Completo</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="flashcard">
+            <div class="card-badge badge-falso">FALSO</div>
             <div class="card-inner">
                 <div class="card-front">
-                    <h2>Manchete 3</h2>
-                    <p>"Vídeo mostra chuva de peixes caindo em cidade no interior do Brasil após tempestade."</p>
+                    <span class="card-category">Cidades & Clima</span>
+                    <p class="headline">"Vídeo impressionante registra 'chuva de peixes' caindo do céu em cidade do interior do Brasil."</p>
+                    <div class="card-footer">
+                        <span><i class="far fa-clock"></i> Ontem</span>
+                        <span class="flip-hint">Passar o mouse para checar <i class="fas fa-sync-alt"></i></span>
+                    </div>
                 </div>
                 <div class="card-back falso">
-                    <h2>FALSO ❌</h2>
-                    <p>O fenômeno de "chuva de animais" é raro, mas o vídeo em questão foi tirado de contexto. Ele mostrava apenas o transbordo de um rio que arrastou peixes para uma pista.</p>
-                    <span>Fonte: E-Farsas</span>
+                    <div class="back-header">
+                        <i class="fas fa-times-circle status-icon"></i>
+                        <h2>CONTEÚDO FALSO</h2>
+                    </div>
+                    <p class="explanation">O fenômeno meteorológico chamado de "tromba d'água" pode sugar peixes, mas o vídeo em questão mostra o transbordo de uma represa local após fortes chuvas que levou os animais para a pista, e não uma chuva caindo do céu.</p>
+                    <div class="source-info">
+                        <strong>Fonte da Checagem:</strong> E-Farsas
+                        <a href="#" class="btn-source">Ver Relatório Completo</a>
+                    </div>
                 </div>
             </div>
         </div>
+
     </main>
 
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Verifica<span>Fato</span></h3>
+                <p>Membro da Rede Internacional de Checagem de Fatos (IFCN). Comprometidos com a precisão, imparcialidade e transparência informativa.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Transparência</h4>
+                <ul>
+                    <li><a href="#">Nossa Equipe</a></li>
+                    <li><a href="#">Como Financiamos</a></li>
+                    <li><a href="#">Princípios Editoriais</a></li>
+                    <li><a href="#">Correções</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Siga a Agência</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VerificaFato. Todos os direitos reservados. Projeto Educacional de Combate à Desinformação.</p>
+        </div>
+    </footer>
+
+    <script>
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const themeText = document.getElementById('theme-text');
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeText.textContent = "Modo Claro";
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeText.textContent = "Modo Escuro";
+            }    
+        }
+        toggleSwitch.addEventListener('change', switchTheme, false);
+    </script>
 </body>
 </html>
