@@ -6,119 +6,38 @@
     <title>VerificaFato | Portal Oficial de Checagem</title>
     <style>
         /* ==========================================================================
-           1. VARIÁVEIS DE CORES (SISTEMA DE TEMAS)
-           ========================================================================== */
-        :root {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-accent: #1e293b;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --primary-color: #2563eb;
-            --success-color: #10b981;
-            --danger-color: #ef4444;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-accent: #020617;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        /* ==========================================================================
-           2. CONFIGURAÇÕES GERAIS E RESET (SEM FONTES EXTERNAS)
+           1. CORES FIXAS E MODERNAS (Sem risco de travar)
            ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.4s ease;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
+            background-color: #f8fafc;
+            color: #0f172a;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         /* ==========================================================================
-           3. BARRA SUPERIOR DE ACESSIBILIDADE E TEMA
+           2. BARRA SUPERIOR E CABEÇALHO
            ========================================================================== */
         .top-bar {
-            background-color: var(--bg-accent);
+            background-color: #1e293b;
             color: #ffffff;
             font-size: 0.8rem;
             padding: 10px 20px;
-        }
-        .top-bar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            text-align: center;
         }
         
-        /* Botão Interruptor Alternador de Modo (Switch) */
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .theme-text {
-            cursor: pointer;
-            font-weight: 600;
-            user-select: none;
-        }
-        .theme-switch {
-            display: inline-block;
-            height: 24px;
-            position: relative;
-            width: 50px;
-        }
-        .theme-switch input { display: none; }
-        .slider {
-            background-color: #cbd5e1;
-            bottom: 0;
-            cursor: pointer;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            border-radius: 34px;
-        }
-        .slider:before {
-            background-color: white;
-            bottom: 3px;
-            content: "";
-            height: 18px;
-            left: 4px;
-            position: absolute;
-            width: 18px;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        input:checked + .slider { background-color: var(--primary-color); }
-        input:checked + .slider:before { transform: translateX(24px); }
-
-        /* ==========================================================================
-           4. CABEÇALHO DO PORTAL (HEADER)
-           ========================================================================== */
         .main-header {
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
             padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
         .header-container {
@@ -135,11 +54,10 @@
             align-items: center;
             gap: 12px;
         }
-        /* Escudo Simulado por CSS Puro */
         .logo-shield {
             width: 32px;
             height: 36px;
-            background-color: var(--primary-color);
+            background-color: #2563eb;
             border-radius: 0 0 16px 16px;
             display: flex;
             align-items: center;
@@ -151,37 +69,34 @@
         .logo-text h1 {
             font-size: 1.6rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
         }
-        .logo-text h1 span { color: var(--primary-color); }
+        .logo-text h1 span { color: #2563eb; }
         .logo-text small {
-            color: var(--text-muted);
+            color: #64748b;
             display: block;
             font-size: 0.75rem;
-            margin-top: -2px;
         }
         .nav-menu span {
-            color: var(--text-main);
+            color: #0f172a;
             margin: 0 15px;
             font-weight: 500;
             font-size: 0.95rem;
-            cursor: pointer;
         }
-        .nav-menu span.active, .nav-menu span:hover {
-            color: var(--primary-color);
+        .nav-menu span.active {
+            color: #2563eb;
+            font-weight: bold;
         }
         .btn-report {
-            background-color: var(--danger-color);
+            background-color: #ef4444;
             color: white;
             border: none;
             padding: 10px 18px;
             border-radius: 6px;
             font-weight: 600;
-            cursor: pointer;
         }
 
         /* ==========================================================================
-           5. SEÇÃO HERO (PAINEL DE DADOS E MONITORAMENTO)
+           3. SEÇÃO HERO E PAINEL
            ========================================================================== */
         .hero-section {
             text-align: center;
@@ -189,8 +104,8 @@
             margin: 40px auto 20px auto;
             padding: 0 20px;
         }
-        .hero-section h2 { font-size: 2rem; margin-bottom: 12px; font-weight: 700; }
-        .hero-section p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem; }
+        .hero-section h2 { font-size: 2rem; margin-bottom: 12px; }
+        .hero-section p { color: #64748b; margin-bottom: 30px; }
 
         .stats-container {
             display: flex;
@@ -199,45 +114,20 @@
             flex-wrap: wrap;
         }
         .stat-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             padding: 20px 30px;
             border-radius: 10px;
-            box-shadow: var(--card-shadow);
             min-width: 180px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
-        .stat-card h3 { font-size: 2rem; margin-bottom: 5px; font-weight: 800; }
-        .stat-card p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
-        .falso-text h3 { color: var(--danger-color); }
-        .verdadeiro-text h3 { color: var(--success-color); }
+        .stat-card h3 { font-size: 2rem; margin-bottom: 5px; }
+        .stat-card p { font-size: 0.85rem; color: #64748b; text-transform: uppercase; font-weight: 600; }
+        .falso-text h3 { color: #ef4444; }
+        .verdadeiro-text h3 { color: #10b981; }
 
         /* ==========================================================================
-           6. ABAS DE FILTROS (SIMULADAS VISUALMENTE)
-           ========================================================================== */
-        .filter-bar {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0 40px 0;
-        }
-        .filter-btn {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        /* ==========================================================================
-           7. GRID E ESTRUTURA DOS FLASHCARDS (GIRO INTERATIVO)
+           4. GRID E ANIMAÇÃO DOS FLASHCARDS (Foco do Desafio)
            ========================================================================== */
         .container {
             display: flex;
@@ -248,15 +138,16 @@
             margin: 0 auto 60px auto;
             padding: 0 20px;
         }
+        
+        /* Estrutura do Card */
         .flashcard {
-            background-color: transparent;
             width: 340px;
             height: 400px;
             perspective: 1000px;
             position: relative;
+            cursor: pointer;
         }
 
-        /* Selo Superior Indicativo */
         .card-badge {
             position: absolute;
             top: -12px;
@@ -267,23 +158,24 @@
             font-weight: 800;
             border-radius: 4px;
             color: white;
-            letter-spacing: 0.5px;
         }
-        .badge-falso { background-color: var(--danger-color); }
-        .badge-verdadeiro { background-color: var(--success-color); }
+        .badge-falso { background-color: #ef4444; }
+        .badge-verdadeiro { background-color: #10b981; }
 
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
-            box-shadow: var(--card-shadow);
             border-radius: 14px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
         
-        /* Aciona a virada 3D ao passar o mouse */
-        .flashcard:hover .card-inner {
+        /* COMPORTAMENTO: Vira ao passar o mouse E ao clicar/focar */
+        .flashcard:hover .card-inner,
+        .flashcard:focus .card-inner,
+        .flashcard:active .card-inner {
             transform: rotateY(180deg);
         }
 
@@ -300,24 +192,22 @@
             justify-content: space-between;
         }
 
-        /* Frente do Card */
+        /* Frente */
         .card-front {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #0f172a;
         }
         .card-category {
             font-size: 0.8rem;
-            color: var(--primary-color);
+            color: #2563eb;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         .headline {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
             line-height: 1.5;
-            color: var(--text-main);
             margin-top: -20px;
         }
         .card-footer {
@@ -325,28 +215,25 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
             padding-top: 15px;
         }
         .flip-hint {
             font-weight: 700;
-            color: var(--primary-color);
+            color: #2563eb;
         }
 
-        /* Verso do Card */
+        /* Verso */
         .card-back {
             color: #ffffff;
             transform: rotateY(180deg);
         }
         .back-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             border-bottom: 1px solid rgba(255,255,255,0.2);
             padding-bottom: 12px;
         }
-        .back-header h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: 0.5px;}
+        .back-header h2 { font-size: 1.3rem; font-weight: 800; }
         .explanation {
             font-size: 0.95rem;
             line-height: 1.6;
@@ -356,28 +243,24 @@
             font-size: 0.85rem;
             border-top: 1px solid rgba(255,255,255,0.2);
             padding-top: 15px;
-            font-weight: 500;
         }
         .source-info span {
             display: block;
-            margin-top: 4px;
             font-weight: bold;
-            opacity: 0.9;
+            margin-top: 2px;
         }
 
-        /* Fundos Degradê do Verso (Sem Imagens) */
         .card-back.falso { background: linear-gradient(135deg, #ef4444, #b91c1c); }
         .card-back.verdadeiro { background: linear-gradient(135deg, #10b981, #047857); }
 
         /* ==========================================================================
-           8. RODAPÉ INSTITUCIONAL (FOOTER)
+           5. RODAPÉ INSTITUCIONAL
            ========================================================================== */
         .main-footer {
-            background-color: var(--bg-accent);
+            background-color: #1e293b;
             color: #94a3b8;
             padding: 50px 20px 30px 20px;
             margin-top: auto;
-            border-top: 1px solid var(--border-color);
         }
         .footer-container {
             display: flex;
@@ -388,11 +271,9 @@
             gap: 40px;
         }
         .footer-info { max-width: 450px; }
-        .footer-info h3 { color: #ffffff; margin-bottom: 15px; font-size: 1.5rem; }
-        .footer-info h3 span { color: var(--primary-color); }
-        .footer-info p { line-height: 1.5; font-size: 0.95rem; }
-        .footer-credits h4 { color: #ffffff; margin-bottom: 15px; font-size: 1.1rem; }
-        .footer-credits p { font-size: 0.9rem; line-height: 1.6; }
+        .footer-info h3 { color: #ffffff; margin-bottom: 15px; }
+        .footer-info h3 span { color: #2563eb; }
+        .footer-credits h4 { color: #ffffff; margin-bottom: 15px; }
         
         .footer-bottom {
             max-width: 1200px;
@@ -403,13 +284,10 @@
             font-size: 0.85rem;
         }
 
-        /* ==========================================================================
-           9. RESPONSIVIDADE (ADAPTAÇÃO PARA CELULARES)
-           ========================================================================== */
         @media (max-width: 768px) {
             .header-container { flex-direction: column; text-align: center; }
             .stats-container { flex-direction: column; align-items: center; }
-            .stat-card { width: 100%; max-width: 320px; }
+            .stat-card { width: 100%; }
             .footer-container { flex-direction: column; text-align: center; }
         }
     </style>
@@ -417,16 +295,7 @@
 <body>
 
     <div class="top-bar">
-        <div class="top-bar-container">
-            <span>Agência Organizacional de Jornalismo Independente</span>
-            <div class="theme-switch-wrapper">
-                <span class="theme-text" id="theme-text">Modo Escuro</span>
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox" />
-                    <div class="slider"></div>
-                </label>
-            </div>
-        </div>
+        <span>Agência Organizacional de Jornalismo Independente • Painel de Verificação</span>
     </div>
 
     <header class="main-header">
@@ -441,8 +310,8 @@
             
             <nav class="nav-menu">
                 <span class="active">Painel Principal</span>
-                <span>Sobre a Agência</span>
-                <span>Nossa Metodologia</span>
+                <span>Sobre Nós</span>
+                <span>Metodologia</span>
             </nav>
 
             <button class="btn-report">Enviar Denúncia</button>
@@ -451,12 +320,12 @@
 
     <section class="hero-section">
         <h2>Monitoramento Geral de Desinformação</h2>
-        <p>Abaixo estão os relatórios das últimas análises de dados coletadas de portais parceiros de checagem, dispostos em cartões interativos de estudo.</p>
+        <p>Abaixo estão os relatórios das últimas análises de dados coletadas, dispostos em cartões interativos de estudo.</p>
         
         <div class="stats-container">
             <div class="stat-card">
                 <h3>1.240</h3>
-                <p>Notícias Coletadas</p>
+                <p>Notícias Analisadas</p>
             </div>
             <div class="stat-card falso-text">
                 <h3>842</h3>
@@ -469,15 +338,9 @@
         </div>
     </section>
 
-    <div class="filter-bar">
-        <button class="filter-btn active">Todas as Categorias</button>
-        <button class="filter-btn">Verdadeiros</button>
-        <button class="filter-btn">Falsos</button>
-    </div>
-
     <main class="container">
         
-        <div class="flashcard">
+        <div class="flashcard" tabindex="0">
             <div class="card-badge badge-falso">FALSO</div>
             <div class="card-inner">
                 <div class="card-front">
@@ -485,22 +348,87 @@
                     <p class="headline">"Estudo científico prova que comer chocolate antes de dormir derrete gordura acumulada."</p>
                     <div class="card-footer">
                         <span>Análise recente</span>
-                        <span class="flip-hint">Girar Cartão ↺</span>
+                        <span class="flip-hint">Toque/Passe o mouse para virar ↺</span>
                     </div>
                 </div>
                 <div class="card-back falso">
                     <div class="back-header">
                         <h2>CONTEÚDO FALSO ✕</h2>
                     </div>
-                    <p class="explanation">Embora o cacau puro possua antioxidantes benéficos, não há qualquer comprovação científica de que ingerir chocolate antes de dormir queime calorias. O boato distorceu uma pesquisa isolada sobre metabolismo celular.</p>
+                    <p class="explanation">Embora o cacau puro possua antioxidantes benéficos, não há qualquer comprovação de que ingerir chocolate antes de dormir queime calorias. O boato distorceu uma pesquisa isolada sobre metabolismo celular.</p>
                     <div class="source-info">
-                        Parceiro de Checagem Oficial:
+                        Parceiro de Checagem:
                         <span>Agência Lupa</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="flashcard">
+        <div class="flashcard" tabindex="0">
             <div class="card-badge badge-verdadeiro">VERDADEIRO</div>
             <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-category">Meio Ambiente</span>
+                    <p class="headline">"Cientistas criam plástico 100% biodegradável utilizando cascas descartadas de camarão."</p>
+                    <div class="card-footer">
+                        <span>Análise recente</span>
+                        <span class="flip-hint">Toque/Passe o mouse para virar ↺</span>
+                    </div>
+                </div>
+                <div class="card-back verdadeiro">
+                    <div class="back-header">
+                        <h2>VERDADEIRO ✓</h2>
+                    </div>
+                    <p class="explanation">Pesquisadores de bioengenharia utilizaram a quitosana, extraída da carapaça de crustáceos, para desenvolver um material resistente que se decompõe em poucas semanas na natureza sem deixar resíduos tóxicos.</p>
+                    <div class="source-info">
+                        Parceiro de Checagem:
+                        <span>Aos Fatos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flashcard" tabindex="0">
+            <div class="card-badge badge-falso">FALSO</div>
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-category">Cidades & Clima</span>
+                    <p class="headline">"Vídeo mostra chuva de peixes caindo do céu em uma cidade do interior após forte tempestade."</p>
+                    <div class="card-footer">
+                        <span>Análise recente</span>
+                        <span class="flip-hint">Toque/Passe o mouse para virar ↺</span>
+                    </div>
+                </div>
+                <div class="card-back falso">
+                    <div class="back-header">
+                        <h2>CONTEÚDO FALSO ✕</h2>
+                    </div>
+                    <p class="explanation">O fenômeno de sucção de animais por tornados existe, mas o vídeo em questão foi tirado de contexto: ele mostrava apenas o transbordo de um rio que arrastou peixes para uma pista rodoviária local.</p>
+                    <div class="source-info">
+                        Parceiro de Checagem:
+                        <span>E-Farsas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Verifica<span>Fato</span></h3>
+                <p>Membro associado da Rede de Checagem de Fatos e Desinformação Digital. Comprometidos com a transparência editorial e com a precisão dos dados analíticos de interesse público.</p>
+            </div>
+            <div class="footer-credits">
+                <h4>Projeto Educacional</h4>
+                <p>Desenvolvido exclusivamente como modelo prático de aplicação para o desafio escolar usando técnicas de HTML5 e CSS3 puro.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VerificaFato. Todos os direitos reservados à Agência Organizadora.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
