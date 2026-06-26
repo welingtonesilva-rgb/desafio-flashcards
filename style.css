@@ -1,127 +1,432 @@
-/* Configurações Gerais */
+/* VARIÁVEIS DE CORES (Permite o Modo Claro/Escuro facilmente) */
+:root {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-accent: #1e293b;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+/* Configuração quando o Modo Escuro estiver ativo */
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-accent: #0f172a;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* RESET E CONFIGURAÇÕES GERAIS */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
-    background-color: #f4f7f6;
-    color: #333;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+}
+
+/* 1. BARRA DE ACESSIBILIDADE */
+.top-bar {
+    background-color: var(--bg-accent);
+    color: #ffffff;
+    font-size: 0.8rem;
+    padding: 8px 20px;
+}
+.top-bar-container {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-header {
+/* Botão Switch do Modo Escuro */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.theme-switch {
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    width: 50px;
+}
+.theme-switch input { display:none; }
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    color: #f1c40f;
+}
+.slider i { font-size: 0.75rem; }
+.slider:before {
+    background-color: white;
+    bottom: 3px;
+    content: "";
+    height: 18px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 18px;
+    border-radius: 50%;
+    z-index: 2;
+}
+input:checked + .slider { background-color: var(--primary-color); }
+input:checked + .slider:before { transform: translateX(24px); }
+
+/* 2. HEADER OFICIAL */
+.main-header {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.logo-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+.logo-text h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+.logo-text h1 span { color: var(--primary-color); }
+.logo-text small {
+    color: var(--text-muted);
+    display: block;
+    margin-top: -4px;
+    font-size: 0.75rem;
+}
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-main);
+    margin: 0 15px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+.nav-menu a.active, .nav-menu a:hover {
+    color: var(--primary-color);
+}
+
+/* Ações do Header (Busca e Denúncia) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.search-box {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+.search-box input {
+    border: none;
+    padding: 8px 12px;
+    background: var(--bg-primary);
+    color: var(--text-main);
+    outline: none;
+}
+.search-box button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 0 12px;
+    cursor: pointer;
+}
+.btn-report {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-report:hover { opacity: 0.9; }
+
+/* 3. HERO / SEÇÃO DE BOAS-VINDAS */
+.hero-section {
     text-align: center;
-    margin-bottom: 40px;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
+.hero-section h2 { font-size: 2rem; margin-bottom: 10px; }
+.hero-section p { color: var(--text-muted); margin-bottom: 30px; }
 
-header h1 {
-    color: #2c3e50;
-    margin-bottom: 10px;
+/* Estatísticas */
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
+.stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    min-width: 150px;
+}
+.stat-card h3 { font-size: 1.8rem; margin-bottom: 5px; }
+.stat-card p { font-size: 0.85rem; margin-bottom: 0; }
+.falso-text h3 { color: var(--danger-color); }
+.verdadeiro-text h3 { color: var(--success-color); }
 
-/* Container dos Flashcards */
+/* 4. FILTROS */
+.filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+.filter-btn {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.filter-btn.active, .filter-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+.text-success { color: var(--success-color); }
+.text-danger { color: var(--danger-color); }
+
+/* 5. CONTAINER E DESIGN DOS FLASHCARDS */
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
     max-width: 1200px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
 }
-
-/* Estrutura do Flashcard (Efeito 3D) */
 .flashcard {
     background-color: transparent;
-    width: 300px;
-    height: 350px;
-    perspective: 1000px; /* Cria o efeito de profundidade 3D */
+    width: 340px;
+    height: 380px;
+    perspective: 1000px;
+    position: relative;
 }
+
+/* Selo de Categoria Solto no Topo do Card */
+.card-badge {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    z-index: 10;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 4px;
+    color: white;
+    letter-spacing: 1px;
+}
+.badge-falso { background-color: var(--danger-color); }
+.badge-verdadeiro { background-color: var(--success-color); }
 
 .card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
-    transition: transform 0.6s;
+    text-align: left;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    border-radius: 12px;
 }
-
-/* Faz o card virar ao passar o mouse */
 .flashcard:hover .card-inner {
     transform: rotateY(180deg);
 }
 
-/* Lados da Frente e Verso */
+/* Lados Comuns */
 .card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Esconde a parte de trás enquanto vira */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 30px 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-/* Estilo da Frente */
-.card-front {
-    background-color: #ffffff;
-    color: #2c3e50;
-    border: 2px solid #e2e8f0;
-}
-
-.card-front h2 {
-    font-size: 1.2rem;
-    color: #718096;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.card-front p {
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 1.4;
-}
-
-/* Estilo do Verso */
-.card-back {
-    color: white;
-    transform: rotateY(180deg); /* Já começa invertido */
     justify-content: space-between;
 }
 
-.card-back h2 {
-    font-size: 1.5rem;
-    margin-top: 10px;
+/* Frente do Cartão */
+.card-front {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
 }
-
-.card-back p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.card-back span {
+.card-category {
     font-size: 0.8rem;
-    font-style: italic;
-    opacity: 0.8;
-    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.headline {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--text-main);
+    margin-top: -40px;
+}
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+.flip-hint {
+    font-weight: 500;
+    color: var(--primary-color);
 }
 
-/* Cores dinâmicas para o Verso */
-.falso {
-    background-color: #e53e3e; /* Vermelho para notícias falsas */
+/* Verso do Cartão */
+.card-back {
+    color: white;
+    transform: rotateY(180deg);
+}
+.back-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+}
+.status-icon { font-size: 1.5rem; }
+.back-header h2 { font-size: 1.2rem; font-weight: 800; letter-spacing: 0.5px;}
+.explanation {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+.source-info {
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 15px;
+}
+.btn-source {
+    display: block;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.btn-source:hover { background: rgba(255,255,255,0.3); }
+
+/* Cores de Fundo do Verso */
+.card-back.falso { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.card-back.verdadeiro { background: linear-gradient(135deg, #059669, #047857); }
+
+/* 6. RODAPÉ (FOOTER) */
+.main-footer {
+    background-color: var(--bg-accent);
+    color: #94a3b8;
+    padding: 50px 20px 20px 20px;
+    border-top: 1px solid var(--border-color);
+}
+.footer-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.footer-info { max-width: 400px; }
+.footer-info h3 { color: white; margin-bottom: 15px; }
+.footer-info h3 span { color: var(--primary-color); }
+.footer-links h4, .footer-social h4 { color: white; margin-bottom: 15px; }
+.footer-links ul { list-style: none; }
+.footer-links ul li { margin-bottom: 8px; }
+.footer-links ul li a { color: #94a3b8; text-decoration: none; }
+.footer-links ul li a:hover { color: white; }
+.social-icons { display: flex; gap: 15px; }
+.social-icons a {
+    color: white;
+    background: rgba(255,255,255,0.1);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+}
+.social-icons a:hover { background: var(--primary-color); }
+.footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    font-size: 0.8rem;
 }
 
-.verdadeiro {
-    background-color: #38a169; /* Verde para notícias verdadeiras */
+/* RESPONSIVIDADE (Ajustes para celular) */
+@media (max-width: 768px) {
+    .header-container { flex-direction: column; text-align: center; }
+    .header-actions { width: 100%; justify-content: center; }
+    .stats-container { flex-direction: column; align-items: center; }
+    .stat-card { width: 100%; max-width: 300px; }
+    .footer-container { flex-direction: column; text-align: center; }
+    .social-icons { justify-content: center; }
 }
