@@ -6,25 +6,44 @@
     <title>VerificaFato | Portal Oficial de Checagem</title>
     <style>
         /* ==========================================================================
-           1. CORES FIXAS E MODERNAS (Sem risco de travar)
+           1. VARIÁVEIS DE CORES (Suporte para Modo Claro/Escuro)
            ========================================================================== */
+        :root {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --header-bg: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --header-bg: #1e293b;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
-            background-color: #f8fafc;
-            color: #0f172a;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         /* ==========================================================================
-           2. BARRA SUPERIOR E CABEÇALHO (Mudar cor da fonte e testar tamanhos)
+           2. BARRA SUPERIOR E CABEÇALHO
            ========================================================================== */
         .top-bar {
             background-color: #1e293b;
@@ -35,8 +54,8 @@
         }
         
         .main-header {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
             padding: 25px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
@@ -72,30 +91,42 @@
             font-weight: 800;
             color: #4338ca;
         }
+        [data-theme="dark"] .logo-text h1 { color: #818cf8; }
         .logo-text h1 span { color: #6366f1; }
         .logo-text small {
-            color: #64748b;
+            color: var(--text-muted);
             display: block;
             font-size: 0.8rem;
         }
+        
         .nav-menu span {
-            color: #1e293b;
+            color: var(--text-main);
             margin: 0 15px;
             font-weight: 600;
             font-size: 1rem;
+            cursor: pointer;
+            padding: 5px 0;
         }
         .nav-menu span.active {
             color: #6366f1;
             font-weight: bold;
+            border-bottom: 2px solid #6366f1;
         }
-        .btn-report {
-            background-color: #ef4444;
+        
+        /* Botão de Alternar Tema */
+        .btn-theme {
+            background-color: #6366f1;
             color: white;
             border: none;
             padding: 10px 18px;
             border-radius: 6px;
             font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .btn-theme:hover { background-color: #4f46e5; }
 
         /* ==========================================================================
            3. SEÇÃO HERO E PAINEL
@@ -107,7 +138,7 @@
             padding: 0 20px;
         }
         .hero-section h2 { font-size: 2rem; margin-bottom: 12px; }
-        .hero-section p { color: #64748b; margin-bottom: 30px; }
+        .hero-section p { color: var(--text-muted); margin-bottom: 30px; }
 
         .stats-container {
             display: flex;
@@ -116,15 +147,15 @@
             flex-wrap: wrap;
         }
         .stat-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             padding: 20px 30px;
             border-radius: 10px;
             min-width: 180px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
         .stat-card h3 { font-size: 2rem; margin-bottom: 5px; }
-        .stat-card p { font-size: 0.85rem; color: #64748b; text-transform: uppercase; font-weight: 600; }
+        .stat-card p { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
         .falso-text h3 { color: #ef4444; }
         .verdadeiro-text h3 { color: #10b981; }
 
@@ -134,8 +165,8 @@
             margin: 50px auto 10px auto;
             padding: 0 20px;
             font-size: 1.75rem;
-            color: #1e293b;
-            border-top: 2px dashed #cbd5e1;
+            color: var(--text-main);
+            border-top: 2px dashed var(--border-color);
             padding-top: 40px;
         }
 
@@ -206,9 +237,9 @@
 
         /* Frente */
         .card-front {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            color: #0f172a;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
         }
         .card-category {
             font-size: 0.8rem;
@@ -227,8 +258,8 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.8rem;
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
             padding-top: 15px;
         }
         .flip-hint {
@@ -252,7 +283,6 @@
             margin: 15px 0;
         }
 
-        /* Estilização Profissional para as fontes dos metadados */
         .source-info {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -274,7 +304,7 @@
         .card-back.estudo-ciencia { background: linear-gradient(135deg, #06b6d4, #0891b2); }
 
         /* ==========================================================================
-           5. RODAPÉ INSTITUCIONAL (Mudar cor da fonte e testar tamanhos)
+           5. RODAPÉ INSTITUCIONAL
            ========================================================================== */
         .main-footer {
             background-color: #1e293b;
@@ -336,7 +366,7 @@
                 <span>Metodologia</span>
             </nav>
 
-            <button class="btn-report">Enviar Denúncia</button>
+            <button class="btn-theme" id="themeToggle">🌓 Modo Escuro</button>
         </div>
     </header>
 
@@ -482,7 +512,7 @@
                     <p class="explanation">A clorofila é o pigmento responsável por absorver a luz solar para iniciar a fotossíntese. É esse processo que permite às plantas converter água e gás carbônico em energia limpa.</p>
                     <div class="source-info">
                         Fonte de Pesquisa:
-                        <span>Tratado de Botânica / Livro Didático</span>
+                        <span>Revista Galileu / Biologia</span>
                     </div>
                 </div>
             </div>
@@ -505,6 +535,33 @@
             <p>&copy; 2026 VerificaFato. Todos os direitos reservados à Agência Organizadora.</p>
         </div>
     </footer>
+
+    <script>
+        // 1. Lógica do Menu Interativo
+        const menuItems = document.querySelectorAll('.nav-menu span');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove a classe ativa de todos
+                menuItems.forEach(i => i.classList.remove('active'));
+                // Adiciona apenas no item clicado
+                item.classList.add('active');
+            });
+        });
+
+        // 2. Lógica do Modo Claro / Modo Escuro
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeToggleBtn.innerHTML = '🌓 Modo Escuro';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggleBtn.innerHTML = '☀️ Modo Claro';
+            }
+        });
+    </script>
 
 </body>
 </html>
