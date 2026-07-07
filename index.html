@@ -3,242 +3,495 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Flashcards de Estudo</title>
+    <title>VerificaFato | Portal Oficial de Checagem</title>
     <style>
         /* ==========================================================================
-           CONFIGURAÇÕES GERAIS
+           1. CORES FIXAS E MODERNAS (Sem risco de travar)
            ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background-color: #f0f2f5;
-            color: #333333;
+            background-color: #f8fafc;
+            color: #0f172a;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         /* ==========================================================================
-           AULA: ALINHAMENTO DO CABEÇALHO (Flexbox)
-           DESAFIO: Mudar cor e tamanho da fonte do cabeçalho
+           2. BARRA SUPERIOR E CABEÇALHO (Mudar cor da fonte e testar tamanhos)
            ========================================================================== */
-        .main-header {
+        .top-bar {
             background-color: #1e293b;
-            padding: 20px;
-            
-            /* PROPRIEDADES DO FLEXBOX PARA VOCÊ TESTAR: */
+            color: #ffffff;
+            font-size: 0.8rem;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        
+        .main-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 25px 20px; /* Aumentado o estofamento (padding) */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        /* AULA: Experimente alterar os valores abaixo para ver o alinhamento mudar */
+        .header-container {
             display: flex;
-            
-            /* justify-content controla o alinhamento HORIZONTAL. 
-               Experimente mudar para: center, flex-start, flex-end, space-around */
-            justify-content: space-between; 
-            
-            /* align-items controla o alinhamento VERTICAL. 
-               Experimente mudar para: flex-start, flex-end, stretch */
-            align-items: center; 
+            justify-content: space-between; /* Teste: center, flex-start, space-around */
+            align-items: center;        /* Teste: flex-start, flex-end */
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-
-        .main-header h1 {
-            /* EXPERIMENTE ALTERAR AQUI: Cor e tamanho da fonte do cabeçalho */
-            color: #ffffff;          /* Nome da cor ou Hexadecimal (Ex: #FFD700) */
-            font-size: 24px;         /* Altere o tamanho (Ex: 20px, 32px, 40px) */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-
-        .header-nav span {
-            color: #94a3b8;
-            margin-left: 15px;
+        .logo-shield {
+            width: 32px;
+            height: 36px;
+            background-color: #6366f1; /* Cor alterada para Roxo Indigo */
+            border-radius: 0 0 16px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
             font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .logo-text h1 {
+            font-size: 1.8rem; /* DESAFIO: Tamanho da fonte alterado de 1.6rem para 1.8rem */
+            font-weight: 800;
+            color: #4338ca;    /* DESAFIO: Cor do texto principal alterada */
+        }
+        .logo-text h1 span { color: #6366f1; }
+        .logo-text small {
+            color: #64748b;
+            display: block;
+            font-size: 0.8rem; /* DESAFIO: Tamanho da fonte alterado */
+        }
+        .nav-menu span {
+            color: #1e293b;
+            margin: 0 15px;
+            font-weight: 600;
+            font-size: 1rem; /* DESAFIO: Aumentado tamanho da fonte */
+        }
+        .nav-menu span.active {
+            color: #6366f1;
+            font-weight: bold;
+        }
+        .btn-report {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
         }
 
         /* ==========================================================================
-           AULA: TAMANHO, PADDING, BORDAS E SOMBRAS DO FLASHCARD
+           3. SEÇÃO HERO E PAINEL
+           ========================================================================== */
+        .hero-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto 20px auto;
+            padding: 0 20px;
+        }
+        .hero-section h2 { font-size: 2rem; margin-bottom: 12px; }
+        .hero-section p { color: #64748b; margin-bottom: 30px; }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 20px 30px;
+            border-radius: 10px;
+            min-width: 180px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .stat-card h3 { font-size: 2rem; margin-bottom: 5px; }
+        .stat-card p { font-size: 0.85rem; color: #64748b; text-transform: uppercase; font-weight: 600; }
+        .falso-text h3 { color: #ef4444; }
+        .verdadeiro-text h3 { color: #10b981; }
+
+        /* Título da nova seção de flashcards */
+        .section-title {
+            text-align: center;
+            max-width: 1200px;
+            margin: 50px auto 10px auto;
+            padding: 0 20px;
+            font-size: 1.75rem;
+            color: #1e293b;
+            border-top: 2px dashed #cbd5e1;
+            padding-top: 40px;
+        }
+
+        /* ==========================================================================
+           4. GRID E ANIMAÇÃO DOS FLASHCARDS
            ========================================================================== */
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
-            padding: 40px 20px;
+            gap: 35px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            padding: 0 20px;
         }
-
+        
+        /* AULA: Propriedades de tamanho que você pode alterar (width, height) */
         .flashcard {
-            /* EXPERIMENTE ALTERAR AQUI: Tamanho e espaçamento do cartão */
-            width: 300px;            /* Largura: tente valores como 260px ou 340px */
-            height: 380px;           /* Altura: tente valores como 350px ou 420px */
-            
+            width: 340px;  /* Largura: Tente alterar para 260px ou 300px */
+            height: 400px; /* Altura: Tente alterar para 350px ou 420px */
             perspective: 1000px;
             position: relative;
+            cursor: pointer;
         }
 
+        .card-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            z-index: 10;
+            padding: 5px 14px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            border-radius: 4px;
+            color: white;
+        }
+        .badge-falso { background-color: #ef4444; }
+        .badge-verdadeiro { background-color: #10b981; }
+        .badge-estudo { background-color: #6366f1; }
+
+        /* AULA: Propriedades visuais para experimentar (border-radius, box-shadow) */
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.6s;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             
-            /* EXPERIMENTE ALTERAR AQUI: Formato das bordas e intensidade da sombra */
-            border-radius: 15px;     /* Bordas: tente 0px (quadrado), 30px ou 50% */
+            border-radius: 14px; /* Arredondamento: Tente valores como 0px, 25px ou 40px */
             
-            /* box-shadow: [deslocamento X] [deslocamento Y] [desfoque] [espalhamento] [cor] */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Tente: 0 15px 30px rgba(0,0,0,0.3) */
+            /* Sombra do Cartão: Modifique os números para deixá-la mais forte ou fraca */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); 
         }
-
-        /* Efeito de virar o card */
-        .flashcard:hover .card-inner {
+        
+        .flashcard:hover .card-inner,
+        .flashcard:focus .card-inner,
+        .flashcard:active .card-inner {
             transform: rotateY(180deg);
         }
 
+        /* AULA: Propriedade de padding (Espaço interno) */
         .card-front, .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: inherit; /* Pega o border-radius do card-inner automaticamente */
+            border-radius: 14px;
             
-            /* EXPERIMENTE ALTERAR AQUI: O preenchimento/espaço interno */
-            padding: 25px;           /* Espaçamento interno: tente 15px 25px ou 40px */
+            padding: 30px 25px; /* Padding interno: Tente mudar para 15px 20px ou 40px */
             
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        /* Lado da Frente */
+        /* Frente */
         .card-front {
             background-color: #ffffff;
-            color: #1e293b;
             border: 1px solid #e2e8f0;
+            color: #0f172a;
         }
-
-        /* Caixa de Imagem Simulada via CSS */
-        .card-image-placeholder {
-            width: 100%;
-            height: 140px;
-            background-color: #cbd5e1;
-            border-radius: 8px;
+        .card-category {
+            font-size: 0.8rem;
+            color: #6366f1;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .headline {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-top: -20px;
+        }
+        .card-footer {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #64748b;
-            font-weight: bold;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        .flip-hint {
+            font-weight: 700;
+            color: #6366f1;
         }
 
-        .card-front h2 {
-            font-size: 1.3rem;
-            margin-top: 10px;
-        }
-
-        .card-front p {
-            font-size: 0.95rem;
-            color: #64748b;
-            line-height: 1.4;
-        }
-
-        /* Lado de Trás */
+        /* Verso */
         .card-back {
-            background-color: #2563eb;
             color: #ffffff;
             transform: rotateY(180deg);
         }
-
-        .card-back h3 {
-            font-size: 1.4rem;
-            border-bottom: 2px solid rgba(255,255,255,0.2);
-            padding-bottom: 10px;
+        .back-header {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 12px;
+        }
+        .back-header h2 { font-size: 1.3rem; font-weight: 800; }
+        .explanation {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        .source-info {
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 15px;
+        }
+        .source-info span {
+            display: block;
+            font-weight: bold;
+            margin-top: 2px;
         }
 
-        .card-back p {
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        /* Rodapé interno do Cartão (Onde vai seu nome) */
-        .card-author {
-            font-size: 0.8rem;
-            text-align: right;
-            opacity: 0.8;
-            font-style: italic;
-        }
+        .card-back.falso { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+        .card-back.verdadeiro { background: linear-gradient(135deg, #10b981, #047857); }
+        .card-back.estudo-historia { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .card-back.estudo-ciencia { background: linear-gradient(135deg, #06b6d4, #0891b2); }
 
         /* ==========================================================================
-           DESAFIO: Mudar cor e tamanho da fonte do rodapé da página
+           5. RODAPÉ INSTITUCIONAL (Mudar cor da fonte e testar tamanhos)
            ========================================================================== */
         .main-footer {
-            background-color: #0f172a;
-            padding: 25px;
-            text-align: center;
+            background-color: #1e293b;
+            color: #cbd5e1; /* DESAFIO: Cor alterada para um tom de cinza mais claro e nítido */
+            padding: 50px 20px 30px 20px;
             margin-top: auto;
         }
+        .footer-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .footer-info { max-width: 450px; }
+        .footer-info h3 { color: #ffffff; margin-bottom: 15px; }
+        .footer-info h3 span { color: #6366f1; }
+        .footer-info p {
+            font-size: 1rem; /* DESAFIO: Modificado tamanho da fonte */
+        }
+        .footer-credits h4 { color: #ffffff; margin-bottom: 15px; }
+        .footer-credits p {
+            font-size: 0.95rem; /* DESAFIO: Modificado tamanho da fonte */
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.95rem; /* DESAFIO: Modificado tamanho da fonte */
+        }
 
-        .main-footer p {
-            /* EXPERIMENTE ALTERAR AQUI: Cor e tamanho da fonte do rodapé */
-            color: #94a3b8;          /* Nome da cor ou Hexadecimal (Ex: blue, #00FF00) */
-            font-size: 14px;         /* Altere o tamanho (Ex: 12px, 18px, 22px) */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; text-align: center; }
+            .stats-container { flex-direction: column; align-items: center; }
+            .stat-card { width: 100%; }
+            .footer-container { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
+    <div class="top-bar">
+        <span>Agência Organizacional de Jornalismo Independente • Painel de Verificação</span>
+    </div>
+
     <header class="main-header">
-        <h1>Meu Painel de Estudos</h1>
-        <div class="header-nav">
-            <span>Matérias</span>
-            <span>Progresso</span>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-shield">✓</div>
+                <div class="logo-text">
+                    <h1>Verifica<span>Fato</span></h1>
+                    <small>A checagem rigorosa dos fatos</small>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <span class="active">Painel Principal</span>
+                <span>Sobre Nós</span>
+                <span>Metodologia</span>
+            </nav>
+
+            <button class="btn-report">Enviar Denúncia</button>
         </div>
     </header>
 
+    <section class="hero-section">
+        <h2>Monitoramento Geral de Desinformação</h2>
+        <p>Abaixo estão os relatórios das últimas análises de dados coletadas, dispostos em cartões interativos de estudo.</p>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>1.240</h3>
+                <p>Notícias Analisadas</p>
+            </div>
+            <div class="stat-card falso-text">
+                <h3>842</h3>
+                <p>Boatos Desmentidos</p>
+            </div>
+            <div class="stat-card verdadeiro-text">
+                <h3>398</h3>
+                <p>Fatos Confirmados</p>
+            </div>
+        </div>
+    </section>
+
     <main class="container">
         
-        <div class="flashcard">
+        <div class="flashcard" tabindex="0">
+            <div class="card-badge badge-falso">FALSO</div>
             <div class="card-inner">
                 <div class="card-front">
-                    <div class="card-image-placeholder">🗺️ [Imagem do Planeta]</div>
-                    <h2>Geografia</h2>
-                    <p>Qual é o maior oceano do planeta Terra em extensão?</p>
-                    <div class="card-footer">Passe o mouse para responder</div>
+                    <span class="card-category">Saúde & Ciência</span>
+                    <p class="headline">"Estudo científico prova que comer chocolate antes de dormir derrete gordura acumulada."</p>
+                    <div class="card-footer">
+                        <span>Análise recente</span>
+                        <span class="flip-hint">Toque/Passe para virar ↺</span>
+                    </div>
                 </div>
-                <div class="card-back">
-                    <h3>Resposta</h3>
-                    <p>O Oceano Pacífico! Ele cobre mais de um terço da superfície da Terra e é maior do que toda a área terrestre combinada.</p>
-                    <div class="card-author">Produzido por: Seu Nome</div>
+                <div class="card-back falso">
+                    <div class="back-header">
+                        <h2>CONTEÚDO FALSO ✕</h2>
+                    </div>
+                    <p class="explanation">Embora o cacau puro possua antioxidantes benéficos, não há qualquer comprovação de que ingerir chocolate antes de dormir queime calorias. O boato distorceu uma pesquisa isolada sobre metabolismo celular.</p>
+                    <div class="source-info">
+                        Parceiro de Checagem:
+                        <span>Agência Lupa</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="flashcard">
+        <div class="flashcard" tabindex="0">
+            <div class="card-badge badge-verdadeiro">VERDADEIRO</div>
             <div class="card-inner">
                 <div class="card-front">
-                    <div class="card-image-placeholder">🏛️ [Imagem das Pirâmides]</div>
-                    <h2>História</h2>
-                    <p>Quem foram os responsáveis por construir as grandes pirâmides de Gizé?</p>
-                    <div class="card-footer">Passe o mouse para responder</div>
+                    <span class="card-category">Meio Ambiente</span>
+                    <p class="headline">"Cientistas criam plástico 100% biodegradável utilizando cascas descartadas de camarão."</p>
+                    <div class="card-footer">
+                        <span>Análise recente</span>
+                        <span class="flip-hint">Toque/Passe para virar ↺</span>
+                    </div>
                 </div>
-                <div class="card-back" style="background-color: #7c3aed;"> <h3>Resposta</h3>
-                    <p>Os antigos egípcios. Elas foram erguidas como monumentos e túmulos para os faraós Khufu, Khafre e Menkaure.</p>
-                    <div class="card-author">Produzido por: Seu Nome</div>
+                <div class="card-back verdadeiro">
+                    <div class="back-header">
+                        <h2>VERDADEIRO ✓</h2>
+                    </div>
+                    <p class="explanation">Pesquisadores de bioengenharia utilizaram a quitosana, extraída da carapaça de crustáceos, para desenvolver um material resistente que se decompõe em poucas semanas na natureza sem deixar resíduos tóxicos.</p>
+                    <div class="source-info">
+                        Parceiro de Checagem:
+                        <span>Aos Fatos</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="flashcard">
+        <div class="flashcard" tabindex="0">
+            <div class="card-badge badge-falso">FALSO</div>
             <div class="card-inner">
                 <div class="card-front">
-                    <div class="card-image-placeholder">🌿 [Imagem de uma Folha]</div>
-                    <h2>Ciências</h2>
-                    <p>Qual é o nome do processo que as plantas usam para produzir seu próprio alimento usando luz solar?</p>
-                    <div class="card-footer">Passe o mouse para responder</div>
+                    <span class="card-category">Cidades & Clima</span>
+                    <p class="headline">"Vídeo mostra chuva de peixes caindo do céu em uma cidade do interior após forte tempestade."</p>
+                    <div class="card-footer">
+                        <span>Análise recente</span>
+                        <span class="flip-hint">Toque/Passe para virar ↺</span>
+                    </div>
                 </div>
-                <div class="card-back" style="background-color: #059669;"> <h3>Resposta</h3>
-                    <p>Fotossíntese! Ocorre nas folhas através da clorofila, transformando água, gás carbônico e luz em glicose e oxigênio.</p>
-                    <div class="card-author">Produzido por: Seu Nome</div>
+                <div class="card-back falso">
+                    <div class="back-header">
+                        <h2>CONTEÚDO FALSO ✕</h2>
+                    </div>
+                    <p class="explanation">O fenômeno de sucção de animais por tornados existe, mas o vídeo em questão foi tirado de contexto: ele mostrava apenas o transbordo de um rio que arrastou peixes para uma pista rodoviária local.</p>
+                    <div class="source-info">
+                        Parceiro de Checagem:
+                        <span>E-Farsas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <h2 class="section-title">Meus Novos Flashcards de Estudo</h2>
+
+    <main class="container">
+
+        <div class="flashcard" tabindex="0">
+            <div class="card-badge badge-estudo">ESTUDO</div>
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-category">História Geral</span>
+                    <p class="headline">"Quem foi o primeiro imperador oficial de Roma e quando começou seu governo?"</p>
+                    <div class="card-footer">
+                        <span>Cartão de Revisão</span>
+                        <span class="flip-hint">Girar Cartão ↺</span>
+                    </div>
+                </div>
+                <div class="card-back estudo-historia">
+                    <div class="back-header">
+                        <h2>RESPOSTA DA QUESTÃO</h2>
+                    </div>
+                    <p class="explanation">O primeiro imperador romano foi César Augusto (nascido Otávio). Seu governo começou oficialmente no ano 27 a.C., marcando o fim da República Romana e o início do Império.</p>
+                    <div class="source-info">
+                        Criado por:
+                        <span>Seu Nome Aqui</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flashcard" tabindex="0">
+            <div class="card-badge badge-estudo">ESTUDO</div>
+            <div class="card-inner">
+                <div class="card-front">
+                    <span class="card-category">Ciências & Natureza</span>
+                    <p class="headline">"Qual é a principal função da clorofila encontrada nas células das plantas?"</p>
+                    <div class="card-footer">
+                        <span>Cartão de Revisão</span>
+                        <span class="flip-hint">Girar Cartão ↺</span>
+                    </div>
+                </div>
+                <div class="card-back estudo-ciencia">
+                    <div class="back-header">
+                        <h2>RESPOSTA DA QUESTÃO</h2>
+                    </div>
+                    <p class="explanation">A clorofila é o pigmento responsável por absorver a luz solar para iniciar a fotossíntese. É esse processo que permite às plantas converter água e gás carbônico em energia limpa.</p>
+                    <div class="source-info">
+                        Criado por:
+                        <span>Welington Silva</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -246,7 +499,19 @@
     </main>
 
     <footer class="main-footer">
-        <p>&copy; 2026 - Desenvolvido no Desafio de CSS de Flashcards de Estudo.</p>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Verifica<span>Fato</span></h3>
+                <p>Membro associado da Rede de Checagem de Fatos e Desinformação Digital. Comprometidos com a transparência editorial e com a precisão dos dados analíticos de interesse público.</p>
+            </div>
+            <div class="footer-credits">
+                <h4>Projeto Educacional</h4>
+                <p>Desenvolvido exclusivamente como modelo prático de aplicação para o desafio escolar usando técnicas de HTML5 e CSS3 puro.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VerificaFato. Todos os direitos reservados à Agência Organizadora.</p>
+        </div>
     </footer>
 
 </body>
