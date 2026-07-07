@@ -6,7 +6,7 @@
     <title>VerificaFato | Portal Oficial de Checagem</title>
     <style>
         /* ==========================================================================
-           1. VARIÁVEIS DE CORES (Invertidas para carregar no Dark por padrão)
+           1. VARIÁVEIS DE CORES E CONFIGURAÇÕES PADRÃO (DARK FIRST)
            ========================================================================== */
         :root {
             --bg-body: #0f172a;
@@ -34,6 +34,10 @@
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
@@ -43,7 +47,7 @@
         }
 
         /* ==========================================================================
-           2. BARRA SUPERIOR E CABEÇALHO
+           2. CABEÇALHO E MENU NAVEGAÇÃO
            ========================================================================== */
         .top-bar {
             background-color: #1e293b;
@@ -51,13 +55,16 @@
             font-size: 0.8rem;
             padding: 10px 20px;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
         
         .main-header {
             background-color: var(--header-bg);
             border-bottom: 1px solid var(--border-color);
-            padding: 25px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header-container {
@@ -99,15 +106,19 @@
             font-size: 0.8rem;
         }
         
-        .nav-menu span {
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-menu span, .nav-menu a {
             color: var(--text-main);
-            margin: 0 15px;
+            text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
             padding: 5px 0;
         }
-        .nav-menu span.active {
+        .nav-menu span.active, .nav-menu a.active {
             color: #6366f1;
             font-weight: bold;
             border-bottom: 2px solid #6366f1;
@@ -121,83 +132,109 @@
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         .btn-theme:hover { background-color: #4f46e5; }
 
-        /* Estrutura de Abas Ativas/Inativas */
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* ==========================================================================
+           3. NOVO CONTEÚDO GRANDE (ARTIGO E SEÇÃO DE SEGURANÇA)
+           ========================================================================== */
+        .editorial-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        /* Estilos das Novas Telas Interativas */
-        .dynamic-view {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 30px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .dynamic-view h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
+        .editorial-article h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
             color: #6366f1;
         }
-        .dynamic-view p {
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .dynamic-view img {
-            width: 100%;
-            max-height: 350px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
+
+        .editorial-article p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: var(--text-main);
+            text-align: justify;
         }
 
-        /* Estilos do Mini-Game Interno */
-        .game-box {
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px dashed #6366f1;
+        .big-image-wrapper {
+            margin: 35px 0;
+            text-align: center;
+        }
+
+        .big-image-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .image-reference {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Guia de Como Detectar Site Fake */
+        .guide-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 35px;
+            margin: 50px 0;
+        }
+
+        .guide-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .guide-steps {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        @media(max-width: 768px) { .guide-steps { grid-template-columns: 1fr; } }
+
+        .step {
+            background: rgba(99, 102, 241, 0.05);
             padding: 20px;
             border-radius: 8px;
-            margin-top: 25px;
+            border-left: 4px solid #6366f1;
         }
-        .game-box button {
-            background: #10b981;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .game-box button:hover { opacity: 0.9; }
-        .game-result {
-            margin-top: 15px;
-            font-weight: bold;
+
+        .step h4 {
             font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
         }
 
         /* ==========================================================================
-           3. SEÇÃO HERO E PAINEL (ORIGINAL)
+           4. SEÇÃO HERO E PAINEL (ORIGINAL)
            ========================================================================== */
         .hero-section {
             text-align: center;
             max-width: 800px;
-            margin: 40px auto 20px auto;
+            margin: 60px auto 20px auto;
             padding: 0 20px;
+            border-top: 2px dashed var(--border-color);
+            padding-top: 50px;
         }
         .hero-section h2 { font-size: 2rem; margin-bottom: 12px; }
         .hero-section p { color: var(--text-muted); margin-bottom: 30px; }
@@ -214,7 +251,6 @@
             padding: 20px 30px;
             border-radius: 10px;
             min-width: 180px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
         .stat-card h3 { font-size: 2rem; margin-bottom: 5px; }
         .stat-card p { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
@@ -228,12 +264,10 @@
             padding: 0 20px;
             font-size: 1.75rem;
             color: var(--text-main);
-            border-top: 2px dashed var(--border-color);
-            padding-top: 40px;
         }
 
         /* ==========================================================================
-           4. GRID E ANIMAÇÃO DOS FLASHCARDS
+           5. GRID E ANIMAÇÃO DOS FLASHCARDS
            ========================================================================== */
         .container {
             display: flex;
@@ -278,9 +312,7 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); 
         }
         
-        .flashcard:hover .card-inner,
-        .flashcard:focus .card-inner,
-        .flashcard:active .card-inner {
+        .flashcard:hover .card-inner, .flashcard:focus .card-inner {
             transform: rotateY(180deg);
         }
 
@@ -302,61 +334,17 @@
             border: 1px solid var(--border-color);
             color: var(--text-main);
         }
-        .card-category {
-            font-size: 0.8rem;
-            color: #6366f1;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .headline {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.5;
-            margin-top: -20px;
-        }
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-        }
-        .flip-hint {
-            font-weight: 700;
-            color: #6366f1;
-        }
+        .card-category { font-size: 0.8rem; color: #6366f1; font-weight: 700; text-transform: uppercase; }
+        .headline { font-size: 1.25rem; font-weight: 700; line-height: 1.5; margin-top: -20px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .flip-hint { font-weight: 700; color: #6366f1; }
 
-        .card-back {
-            color: #ffffff;
-            transform: rotateY(180deg);
-        }
-        .back-header {
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding-bottom: 12px;
-        }
+        .card-back { color: #ffffff; transform: rotateY(180deg); }
+        .back-header { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px; }
         .back-header h2 { font-size: 1.3rem; font-weight: 800; }
-        .explanation {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin: 15px 0;
-        }
-
-        .source-info {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            opacity: 0.9;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 15px;
-        }
-        .source-info span {
-            display: block;
-            font-weight: 700;
-            margin-top: 4px;
-            color: #ffffff;
-        }
+        .explanation { font-size: 0.95rem; line-height: 1.6; margin: 15px 0; }
+        .source-info { font-size: 0.75rem; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; }
+        .source-info span { display: block; font-weight: 700; margin-top: 4px; color: #ffffff; }
 
         .card-back.falso { background: linear-gradient(135deg, #ef4444, #b91c1c); }
         .card-back.verdadeiro { background: linear-gradient(135deg, #10b981, #047857); }
@@ -364,44 +352,81 @@
         .card-back.estudo-ciencia { background: linear-gradient(135deg, #06b6d4, #0891b2); }
 
         /* ==========================================================================
-           5. RODAPÉ INSTITUCIONAL
+           6. OUTRAS ABAS (SOBRE E METODOLOGIA MODIFICADA)
+           ========================================================================== */
+        .dynamic-view {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+        }
+        .dynamic-view h2 { font-size: 2rem; margin-bottom: 15px; color: #6366f1; }
+        .dynamic-view p { color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+        
+        /* Imagem menor solicitada para a aba Metodologia */
+        .small-quiz-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 15px auto;
+            border: 3px solid #6366f1;
+            display: block;
+        }
+
+        .game-wrapper {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .game-box {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px dashed #6366f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+        .game-box button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .game-box button:hover { opacity: 0.9; }
+        .game-result { margin-top: 15px; font-weight: bold; font-size: 1.1rem; }
+
+        .end-message {
+            display: none;
+            font-size: 1.3rem;
+            color: #10b981;
+            font-weight: bold;
+            padding: 20px;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+        /* ==========================================================================
+           7. RODAPÉ INSTITUCIONAL
            ========================================================================== */
         .main-footer {
             background-color: #1e293b;
             color: #cbd5e1;
             padding: 50px 20px 30px 20px;
             margin-top: auto;
+            border-top: 1px solid var(--border-color);
         }
-        .footer-container {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
+        .footer-container { display: flex; max-width: 1200px; margin: 0 auto; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
         .footer-info { max-width: 450px; }
         .footer-info h3 { color: #ffffff; margin-bottom: 15px; }
         .footer-info h3 span { color: #6366f1; }
-        .footer-info p { font-size: 1rem; }
-        .footer-credits h4 { color: #ffffff; margin-bottom: 15px; }
-        .footer-credits p { font-size: 0.95rem; }
-        
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 40px auto 0 auto;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            .header-container { flex-direction: column; text-align: center; }
-            .stats-container { flex-direction: column; align-items: center; }
-            .stat-card { width: 100%; }
-            .footer-container { flex-direction: column; text-align: center; }
-        }
+        .footer-bottom { max-width: 1200px; margin: 40px auto 0 auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
     </style>
 </head>
 <body>
@@ -422,6 +447,7 @@
             
             <nav class="nav-menu">
                 <span class="active" data-target="aba-principal">Painel Principal</span>
+                <a href="#bloco-flashcards" id="lnk-cards">Flashcards</a>
                 <span data-target="aba-sobre">Sobre Nós</span>
                 <span data-target="aba-metodologia">Metodologia</span>
             </nav>
@@ -431,6 +457,45 @@
     </header>
 
     <div id="aba-principal" class="tab-content active">
+        
+        <article class="editorial-container">
+            <div class="editorial-article">
+                <h2>O Ecossistema Digital e a Epidemia Oculta da Desinformação</h2>
+                <p>No atual cenário hiperconectado, a velocidade com que uma informação percorre o globo superou barreiras físicas e editoriais. Contudo, essa democratização da escrita trouxe consigo um efeito colateral complexo: a proliferação planejada de conteúdos falsos ou distorcidos, vulgarmente conhecidos como boatos digitais. A desinformação não opera ao acaso; ela é arquitetada para ativar gatilhos emocionais como indignação, medo ou alívio instantâneo, fazendo com que o leitor compartilhe o conteúdo antes de acionar o pensamento analítico.</p>
+                
+                <div class="big-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80" alt="Mídia digital e telas">
+                    <span class="image-reference">Fonte visual: Unsplash Editorial / Banco de Dados Jornalístico</span>
+                </div>
+
+                <p>Combater essa engrenagem exige mais do que apenas ferramentas automáticas; requer letramento digital. Quando portais independentes e agências realizam a checagem detalhada, eles ajudam a restabelecer o equilíbrio factual necessário para debates saudáveis na sociedade, seja sobre saúde coletiva, fenômenos climáticos ou verdades históricas fundamentais.</p>
+            </div>
+
+            <div class="guide-box">
+                <h3>🔍 Como Identificar se o Site que Você Visita é Confiável?</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Use este checklist rápido de análise em qualquer portal suspeito na internet:</p>
+                
+                <div class="guide-steps">
+                    <div class="step">
+                        <h4>1. Verifique a URL (Endereço Web)</h4>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">Sites enganosos costumam usar extensões estranhas (.net.co, .org.biz) ou imitar grandes marcas mudando uma única letra (ex: g1l.globo em vez de g1.globo).</p>
+                    </div>
+                    <div class="step">
+                        <h4>2. Selos de Segurança e HTTPS</h4>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">Olhe para o cadeado ao lado do link. Portais oficiais possuem certificados de criptografia ativos (HTTPS) que resguardam a identidade da página.</p>
+                    </div>
+                    <div class="step">
+                        <h4>3. Ausência de Expediente ou Autores</h4>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">Portais sérios têm uma aba transparente de 'Quem Somos', listando os jornalistas responsáveis ou editores-chefes. Plataformas falsas costumam ser anônimas.</p>
+                    </div>
+                    <div class="step">
+                        <h4>4. Excesso de Sensacionalismo</h4>
+                        <p style="font-size:0.9rem; color:var(--text-muted);">Títulos escritos inteiramente em letras maiúsculas (CAIXA ALTA), repletos de exclamações e adjetivos apelativos são marcas clássicas de fakenews criadas para caçar cliques.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
         <section class="hero-section">
             <h2>Monitoramento Geral de Desinformação</h2>
             <p>Abaixo estão os relatórios das últimas análises de dados coletadas, dispostos em cartões interativos de estudo.</p>
@@ -451,6 +516,9 @@
             </div>
         </section>
 
+        <div id="bloco-flashcards"></div>
+        <h2 class="section-title">Painel de Flashcards Coletados</h2>
+        
         <main class="container">
             <div class="flashcard" tabindex="0">
                 <div class="card-badge badge-falso">FALSO</div>
@@ -458,20 +526,12 @@
                     <div class="card-front">
                         <span class="card-category">Saúde & Ciência</span>
                         <p class="headline">"Estudo científico prova que comer chocolate antes de dormir derrete gordura acumulada."</p>
-                        <div class="card-footer">
-                            <span>Análise recente</span>
-                            <span class="flip-hint">Toque/Passe para virar ↺</span>
-                        </div>
+                        <div class="card-footer"><span>Análise recente</span><span class="flip-hint">Virar ↺</span></div>
                     </div>
                     <div class="card-back falso">
-                        <div class="back-header">
-                            <h2>CONTEÚDO FALSO ✕</h2>
-                        </div>
-                        <p class="explanation">Embora o cacau puro possua antioxidantes benéficos, não há qualquer comprovação de que ingerir chocolate antes de dormir queime calorias.</p>
-                        <div class="source-info">
-                            Parceiro de Checagem:
-                            <span>Agência Lupa</span>
-                        </div>
+                        <div class="back-header"><h2>CONTEÚDO FALSO ✕</h2></div>
+                        <p class="explanation">Não há qualquer comprovação de que ingerir chocolate antes de dormir queime gordura celular.</p>
+                        <div class="source-info">Parceiro de Checagem: <span>Agência Lupa</span></div>
                     </div>
                 </div>
             </div>
@@ -482,51 +542,18 @@
                     <div class="card-front">
                         <span class="card-category">Meio Ambiente</span>
                         <p class="headline">"Cientistas criam plástico 100% biodegradável utilizando cascas descartadas de camarão."</p>
-                        <div class="card-footer">
-                            <span>Análise recente</span>
-                            <span class="flip-hint">Toque/Passe para virar ↺</span>
-                        </div>
+                        <div class="card-footer"><span>Análise recente</span><span class="flip-hint">Virar ↺</span></div>
                     </div>
                     <div class="card-back verdadeiro">
-                        <div class="back-header">
-                            <h2>VERDADEIRO ✓</h2>
-                        </div>
-                        <p class="explanation">Pesquisadores utilizaram a quitosana, extraída de crustáceos, para desenvolver um material resistente que se decompõe em poucas semanas.</p>
-                        <div class="source-info">
-                            Parceiro de Checagem:
-                            <span>Aos Fatos</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flashcard" tabindex="0">
-                <div class="card-badge badge-falso">FALSO</div>
-                <div class="card-inner">
-                    <div class="card-front">
-                        <span class="card-category">Cidades & Clima</span>
-                        <p class="headline">"Vídeo mostra chuva de peixes caindo do céu em uma cidade do interior após forte tempestade."</p>
-                        <div class="card-footer">
-                            <span>Análise recente</span>
-                            <span class="flip-hint">Toque/Passe para virar ↺</span>
-                        </div>
-                    </div>
-                    <div class="card-back falso">
-                        <div class="back-header">
-                            <h2>CONTEÚDO FALSO ✕</h2>
-                        </div>
-                        <p class="explanation">O vídeo foi tirado de contexto: ele mostrava apenas o transbordo de um rio que arrastou peixes para uma rodovia local.</p>
-                        <div class="source-info">
-                            Parceiro de Checagem:
-                            <span>E-Farsas</span>
-                        </div>
+                        <div class="back-header"><h2>VERDADEIRO ✓</h2></div>
+                        <p class="explanation">Pesquisadores utilizaram a quitosana para desenvolver um plástico que se decompõe em semanas.</p>
+                        <div class="source-info">Parceiro de Checagem: <span>Aos Fatos</span></div>
                     </div>
                 </div>
             </div>
         </main>
 
         <h2 class="section-title">Meus Novos Flashcards de Estudo</h2>
-
         <main class="container">
             <div class="flashcard" tabindex="0">
                 <div class="card-badge badge-estudo">ESTUDO</div>
@@ -534,20 +561,12 @@
                     <div class="card-front">
                         <span class="card-category">História Geral</span>
                         <p class="headline">"Quem foi o primeiro imperador oficial de Roma e quando começou seu governo?"</p>
-                        <div class="card-footer">
-                            <span>Cartão de Revisão</span>
-                            <span class="flip-hint">Girar Cartão ↺</span>
-                        </div>
+                        <div class="card-footer"><span>Cartão de Revisão</span><span class="flip-hint">Girar ↺</span></div>
                     </div>
                     <div class="card-back estudo-historia">
-                        <div class="back-header">
-                            <h2>RESPOSTA DA QUESTÃO</h2>
-                        </div>
-                        <p class="explanation">O primeiro imperador romano foi César Augusto (nascido Otávio). Seu governo começou oficialmente no ano 27 a.C., marcando o início do Império.</p>
-                        <div class="source-info">
-                            Fonte de Pesquisa:
-                            <span>Enciclopédia Britânica / Manual Didático</span>
-                        </div>
+                        <div class="back-header"><h2>RESPOSTA DA QUESTÃO</h2></div>
+                        <p class="explanation">O primeiro imperador romano foi César Augusto. Seu governo começou oficialmente no ano 27 a.C.</p>
+                        <div class="source-info">Fonte de Pesquisa: <span>Enciclopédia Britânica</span></div>
                     </div>
                 </div>
             </div>
@@ -558,20 +577,12 @@
                     <div class="card-front">
                         <span class="card-category">Ciências & Natureza</span>
                         <p class="headline">"Qual é a principal função da clorofila encontrada nas células das plantas?"</p>
-                        <div class="card-footer">
-                            <span>Cartão de Revisão</span>
-                            <span class="flip-hint">Girar Cartão ↺</span>
-                        </div>
+                        <div class="card-footer"><span>Cartão de Revisão</span><span class="flip-hint">Girar ↺</span></div>
                     </div>
                     <div class="card-back estudo-ciencia">
-                        <div class="back-header">
-                            <h2>RESPOSTA DA QUESTÃO</h2>
-                        </div>
+                        <div class="back-header"><h2>RESPOSTA DA QUESTÃO</h2></div>
                         <p class="explanation">A clorofila é o pigmento responsável por absorver a luz solar para iniciar a fotossíntese celular.</p>
-                        <div class="source-info">
-                            Fonte de Pesquisa:
-                            <span>Revista Galileu / Biologia</span>
-                        </div>
+                        <div class="source-info">Fonte de Pesquisa: <span>Revista Galileu / Biologia</span></div>
                     </div>
                 </div>
             </div>
@@ -581,25 +592,27 @@
     <div id="aba-sobre" class="tab-content">
         <div class="dynamic-view">
             <h2>Sobre a Nossa Agência</h2>
-            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80" alt="Equipe de Jornalismo">
-            <p>O <strong>VerificaFato</strong> nasceu como uma iniciativa educacional para combater a disseminação de notícias falsas na internet. Nossa equipe é composta por estudantes dedicados e analistas que buscam trazer a verdade nua e crua por meio de dados visuais simplificados e interativos.</p>
-            <p>Acreditamos que a educação e o pensamento crítico são os melhores escudos contra a desinformação moderna.</p>
+            <p>O <strong>VerificaFato</strong> nasceu como uma iniciativa educacional para combater a disseminação de notícias falsas na internet através de ferramentas didáticas de checagem.</p>
         </div>
     </div>
 
     <div id="aba-metodologia" class="tab-content">
         <div class="dynamic-view">
             <h2>Nossa Metodologia de Análise</h2>
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" alt="Análise de dados">
-            <p>Para cada card publicado em nosso sistema, realizamos um processo rigoroso de cruzamento de dados, que envolve a verificação em canais oficiais de pesquisa governamental, revisão bibliográfica escolar e fontes acadêmicas internacionais.</p>
+            <p>Cruzamos dados de pesquisas bibliográficas escolares com agências oficiais de jornalismo.</p>
             
-            <div class="game-box">
-                <h3>🎮 Teste Seus Reflexos de Checador</h3>
-                <p style="margin-top: 10px;">Diz a lenda: "Muralha da China é o único monumento visível do espaço a olho nu." Isso é:</p>
-                <button onclick="jogar(false)">Falso ✕</button>
-                <button onclick="jogar(true)">Verdadeiro ✓</button>
-                <div class="game-result" id="resultadoJogo"></div>
+            <div id="area-jogo-completa">
+                <div class="game-wrapper" id="blocoJogo">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=300&q=80" alt="Ícone de Quiz" class="small-quiz-img">
+                    <div class="game-box">
+                        <h3>Análise Prática: "A grande Muralha da China é visível do espaço a olho nu?"</h3>
+                        <button onclick="responderQuiz(false)">Falso ✕</button>
+                        <button onclick="responderQuiz(true)">Verdadeiro ✓</button>
+                        <div class="game-result" id="resultadoMetodologia"></div>
+                    </div>
+                </div>
             </div>
+            <div class="end-message" id="mensagemFim">Todos os quizzes deste bloco foram concluídos! 🎉</div>
         </div>
     </div>
 
@@ -607,43 +620,44 @@
         <div class="footer-container">
             <div class="footer-info">
                 <h3>Verifica<span>Fato</span></h3>
-                <p>Membro associado da Rede de Checagem de Fatos e Desinformação Digital. Comprometidos com a transparência editorial e com a precisão dos dados analíticos de interesse público.</p>
+                <p>&copy; 2026 VerificaFato. Todos os direitos reservados.</p>
             </div>
-            <div class="footer-credits">
-                <h4>Projeto Educacional</h4>
-                <p>Desenvolvido exclusivamente como modelo prático de aplicação para o desafio escolar usando técnicas de HTML5 e CSS3 puro.</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 VerificaFato. Todos os direitos reservados à Agência Organizadora.</p>
         </div>
     </footer>
 
     <script>
-        // 1. Alternador Dinâmico de Abas (Menu Superior)
         const menuItems = document.querySelectorAll('.nav-menu span');
+        const linkCards = document.getElementById('lnk-cards');
         const tabContents = document.querySelectorAll('.tab-content');
+        const abaPrincipal = document.getElementById('aba-principal');
 
+        // Lógica de Abas Gerais
         menuItems.forEach(item => {
             item.addEventListener('click', () => {
-                // Atualiza o menu visual (classe active)
                 menuItems.forEach(i => i.classList.remove('active'));
+                linkCards.classList.remove('active');
                 item.classList.add('active');
 
-                // Esconde todas as abas e mostra apenas a selecionada
                 const targetId = item.getAttribute('data-target');
-                tabContents.forEach(tab => {
-                    tab.classList.remove('active');
-                });
+                tabContents.forEach(tab => tab.classList.remove('active'));
                 document.getElementById(targetId).classList.add('active');
             });
         });
 
-        // 2. Alternador de Tema (Modo Claro / Modo Escuro) - Atualizado para carregar no Dark
+        // Clique no Link "Flashcards" do menu superior
+        linkCards.addEventListener('click', () => {
+            menuItems.forEach(i => i.classList.remove('active'));
+            linkCards.classList.add('active');
+            
+            // Força voltar para a aba principal antes de rolar até o elemento
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            abaPrincipal.classList.add('active');
+        });
+
+        // Alternador de Cores Tema Claro / Escuro
         const themeToggleBtn = document.getElementById('themeToggle');
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
-            
             if (currentTheme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 themeToggleBtn.innerHTML = '☀️ Modo Claro';
@@ -653,18 +667,31 @@
             }
         });
 
-        // 3. Função do Mini-Game Interativo
-        function jogar(respostaDoUsuario) {
-            const campoResultado = document.getElementById('resultadoJogo');
-            if (respostaDoUsuario === false) {
-                campoResultado.style.color = "#10b981";
-                campoResultado.innerHTML = "Acertou! ✕ É Falso. Astronautas confirmam que ela se mistura com o relevo e não dá para ver a olho nu sem lentes especiais.";
+        // Função do Quiz Inteligente com timer para sumir
+        function responderQuiz(escolha) {
+            const resultBox = document.getElementById('resultadoMetodologia');
+            const blocoJogo = document.getElementById('blocoJogo');
+            const mensagemFim = document.getElementById('mensagemFim');
+
+            if (escolha === false) {
+                resultBox.style.color = "#10b981";
+                resultBox.innerHTML = "Excelente! É falso. Astronautas comprovam que ela não é visível a olho nu na órbita baixa.";
             } else {
-                campoResultado.style.color = "#ef4444";
-                campoResultado.innerHTML = "Errou! ✕ Na verdade é um mito antigo; ela é muito estreita e feita de materiais que se camuflam com o solo ao redor.";
+                resultBox.style.color = "#ef4444";
+                resultBox.innerHTML = "Incorreto. Ela possui largura fina e cores similares ao solo, impedindo a visualização orbital a olho nu.";
             }
+
+            // Após 4 segundos (4000 milissegundos), o bloco some e exibe a finalização
+            setTimeout(() => {
+                blocoJogo.style.transform = "scale(0.9)";
+                blocoJogo.style.opacity = "0";
+                
+                setTimeout(() => {
+                    blocoJogo.style.display = "none";
+                    mensagemFim.style.display = "block";
+                }, 500);
+            }, 4000);
         }
     </script>
-
 </body>
 </html>
