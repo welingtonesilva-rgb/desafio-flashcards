@@ -430,3 +430,19 @@ input:checked + .slider:before { transform: translateX(24px); }
     .footer-container { flex-direction: column; text-align: center; }
     .social-icons { justify-content: center; }
 }
+
+.source-info {
+    font-size: 0.75rem; /* Letra menor para dar hierarquia visual */
+    text-transform: uppercase; /* Deixa o texto em caixa alta, bem elegante */
+    letter-spacing: 0.5px; /* Espaçamento sutil entre as letras */
+    opacity: 0.8; /* Deixa levemente transparente para não brigar com o texto principal */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 12px;
+}
+
+.source-info span {
+    display: block;
+    font-weight: 700;
+    margin-top: 4px;
+    color: #ffffff; /* Destaca o nome da fonte em branco puro */
+}
