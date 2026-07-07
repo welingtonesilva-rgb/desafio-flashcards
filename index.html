@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VerificaFato | Portal Oficial de Checagem</title>
     <style>
         /* ==========================================================================
-           1. VARIÁVEIS DE CORES (Suporte para Modo Claro/Escuro)
+           1. VARIÁVEIS DE CORES (Invertidas para carregar no Dark por padrão)
            ========================================================================== */
         :root {
-            --bg-body: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --header-bg: #ffffff;
-        }
-
-        [data-theme="dark"] {
             --bg-body: #0f172a;
             --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #334155;
             --header-bg: #1e293b;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --header-bg: #ffffff;
         }
 
         * {
@@ -89,9 +89,9 @@
         .logo-text h1 {
             font-size: 1.8rem;
             font-weight: 800;
-            color: #4338ca;
+            color: #818cf8;
         }
-        [data-theme="dark"] .logo-text h1 { color: #818cf8; }
+        [data-theme="light"] .logo-text h1 { color: #4338ca; }
         .logo-text h1 span { color: #6366f1; }
         .logo-text small {
             color: var(--text-muted);
@@ -113,7 +113,6 @@
             border-bottom: 2px solid #6366f1;
         }
         
-        /* Botão de Alternar Tema */
         .btn-theme {
             background-color: #6366f1;
             color: white;
@@ -128,8 +127,71 @@
         }
         .btn-theme:hover { background-color: #4f46e5; }
 
+        /* Estrutura de Abas Ativas/Inativas */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Estilos das Novas Telas Interativas */
+        .dynamic-view {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .dynamic-view h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #6366f1;
+        }
+        .dynamic-view p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .dynamic-view img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Estilos do Mini-Game Interno */
+        .game-box {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px dashed #6366f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+        .game-box button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .game-box button:hover { opacity: 0.9; }
+        .game-result {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
         /* ==========================================================================
-           3. SEÇÃO HERO E PAINEL
+           3. SEÇÃO HERO E PAINEL (ORIGINAL)
            ========================================================================== */
         .hero-section {
             text-align: center;
@@ -235,7 +297,6 @@
             justify-content: space-between;
         }
 
-        /* Frente */
         .card-front {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -267,7 +328,6 @@
             color: #6366f1;
         }
 
-        /* Verso */
         .card-back {
             color: #ffffff;
             transform: rotateY(180deg);
@@ -361,164 +421,187 @@
             </div>
             
             <nav class="nav-menu">
-                <span class="active">Painel Principal</span>
-                <span>Sobre Nós</span>
-                <span>Metodologia</span>
+                <span class="active" data-target="aba-principal">Painel Principal</span>
+                <span data-target="aba-sobre">Sobre Nós</span>
+                <span data-target="aba-metodologia">Metodologia</span>
             </nav>
 
-            <button class="btn-theme" id="themeToggle">🌓 Modo Escuro</button>
+            <button class="btn-theme" id="themeToggle">☀️ Modo Claro</button>
         </div>
     </header>
 
-    <section class="hero-section">
-        <h2>Monitoramento Geral de Desinformação</h2>
-        <p>Abaixo estão os relatórios das últimas análises de dados coletadas, dispostos em cartões interativos de estudo.</p>
-        
-        <div class="stats-container">
-            <div class="stat-card">
-                <h3>1.240</h3>
-                <p>Notícias Analisadas</p>
+    <div id="aba-principal" class="tab-content active">
+        <section class="hero-section">
+            <h2>Monitoramento Geral de Desinformação</h2>
+            <p>Abaixo estão os relatórios das últimas análises de dados coletadas, dispostos em cartões interativos de estudo.</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>1.240</h3>
+                    <p>Notícias Analisadas</p>
+                </div>
+                <div class="stat-card falso-text">
+                    <h3>842</h3>
+                    <p>Boatos Desmentidos</p>
+                </div>
+                <div class="stat-card verdadeiro-text">
+                    <h3>398</h3>
+                    <p>Fatos Confirmados</p>
+                </div>
             </div>
-            <div class="stat-card falso-text">
-                <h3>842</h3>
-                <p>Boatos Desmentidos</p>
+        </section>
+
+        <main class="container">
+            <div class="flashcard" tabindex="0">
+                <div class="card-badge badge-falso">FALSO</div>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="card-category">Saúde & Ciência</span>
+                        <p class="headline">"Estudo científico prova que comer chocolate antes de dormir derrete gordura acumulada."</p>
+                        <div class="card-footer">
+                            <span>Análise recente</span>
+                            <span class="flip-hint">Toque/Passe para virar ↺</span>
+                        </div>
+                    </div>
+                    <div class="card-back falso">
+                        <div class="back-header">
+                            <h2>CONTEÚDO FALSO ✕</h2>
+                        </div>
+                        <p class="explanation">Embora o cacau puro possua antioxidantes benéficos, não há qualquer comprovação de que ingerir chocolate antes de dormir queime calorias.</p>
+                        <div class="source-info">
+                            Parceiro de Checagem:
+                            <span>Agência Lupa</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card verdadeiro-text">
-                <h3>398</h3>
-                <p>Fatos Confirmados</p>
+
+            <div class="flashcard" tabindex="0">
+                <div class="card-badge badge-verdadeiro">VERDADEIRO</div>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="card-category">Meio Ambiente</span>
+                        <p class="headline">"Cientistas criam plástico 100% biodegradável utilizando cascas descartadas de camarão."</p>
+                        <div class="card-footer">
+                            <span>Análise recente</span>
+                            <span class="flip-hint">Toque/Passe para virar ↺</span>
+                        </div>
+                    </div>
+                    <div class="card-back verdadeiro">
+                        <div class="back-header">
+                            <h2>VERDADEIRO ✓</h2>
+                        </div>
+                        <p class="explanation">Pesquisadores utilizaram a quitosana, extraída de crustáceos, para desenvolver um material resistente que se decompõe em poucas semanas.</p>
+                        <div class="source-info">
+                            Parceiro de Checagem:
+                            <span>Aos Fatos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard" tabindex="0">
+                <div class="card-badge badge-falso">FALSO</div>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="card-category">Cidades & Clima</span>
+                        <p class="headline">"Vídeo mostra chuva de peixes caindo do céu em uma cidade do interior após forte tempestade."</p>
+                        <div class="card-footer">
+                            <span>Análise recente</span>
+                            <span class="flip-hint">Toque/Passe para virar ↺</span>
+                        </div>
+                    </div>
+                    <div class="card-back falso">
+                        <div class="back-header">
+                            <h2>CONTEÚDO FALSO ✕</h2>
+                        </div>
+                        <p class="explanation">O vídeo foi tirado de contexto: ele mostrava apenas o transbordo de um rio que arrastou peixes para uma rodovia local.</p>
+                        <div class="source-info">
+                            Parceiro de Checagem:
+                            <span>E-Farsas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <h2 class="section-title">Meus Novos Flashcards de Estudo</h2>
+
+        <main class="container">
+            <div class="flashcard" tabindex="0">
+                <div class="card-badge badge-estudo">ESTUDO</div>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="card-category">História Geral</span>
+                        <p class="headline">"Quem foi o primeiro imperador oficial de Roma e quando começou seu governo?"</p>
+                        <div class="card-footer">
+                            <span>Cartão de Revisão</span>
+                            <span class="flip-hint">Girar Cartão ↺</span>
+                        </div>
+                    </div>
+                    <div class="card-back estudo-historia">
+                        <div class="back-header">
+                            <h2>RESPOSTA DA QUESTÃO</h2>
+                        </div>
+                        <p class="explanation">O primeiro imperador romano foi César Augusto (nascido Otávio). Seu governo começou oficialmente no ano 27 a.C., marcando o início do Império.</p>
+                        <div class="source-info">
+                            Fonte de Pesquisa:
+                            <span>Enciclopédia Britânica / Manual Didático</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard" tabindex="0">
+                <div class="card-badge badge-estudo">ESTUDO</div>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <span class="card-category">Ciências & Natureza</span>
+                        <p class="headline">"Qual é a principal função da clorofila encontrada nas células das plantas?"</p>
+                        <div class="card-footer">
+                            <span>Cartão de Revisão</span>
+                            <span class="flip-hint">Girar Cartão ↺</span>
+                        </div>
+                    </div>
+                    <div class="card-back estudo-ciencia">
+                        <div class="back-header">
+                            <h2>RESPOSTA DA QUESTÃO</h2>
+                        </div>
+                        <p class="explanation">A clorofila é o pigmento responsável por absorver a luz solar para iniciar a fotossíntese celular.</p>
+                        <div class="source-info">
+                            Fonte de Pesquisa:
+                            <span>Revista Galileu / Biologia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="aba-sobre" class="tab-content">
+        <div class="dynamic-view">
+            <h2>Sobre a Nossa Agência</h2>
+            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80" alt="Equipe de Jornalismo">
+            <p>O <strong>VerificaFato</strong> nasceu como uma iniciativa educacional para combater a disseminação de notícias falsas na internet. Nossa equipe é composta por estudantes dedicados e analistas que buscam trazer a verdade nua e crua por meio de dados visuais simplificados e interativos.</p>
+            <p>Acreditamos que a educação e o pensamento crítico são os melhores escudos contra a desinformação moderna.</p>
+        </div>
+    </div>
+
+    <div id="aba-metodologia" class="tab-content">
+        <div class="dynamic-view">
+            <h2>Nossa Metodologia de Análise</h2>
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" alt="Análise de dados">
+            <p>Para cada card publicado em nosso sistema, realizamos um processo rigoroso de cruzamento de dados, que envolve a verificação em canais oficiais de pesquisa governamental, revisão bibliográfica escolar e fontes acadêmicas internacionais.</p>
+            
+            <div class="game-box">
+                <h3>🎮 Teste Seus Reflexos de Checador</h3>
+                <p style="margin-top: 10px;">Diz a lenda: "Muralha da China é o único monumento visível do espaço a olho nu." Isso é:</p>
+                <button onclick="jogar(false)">Falso ✕</button>
+                <button onclick="jogar(true)">Verdadeiro ✓</button>
+                <div class="game-result" id="resultadoJogo"></div>
             </div>
         </div>
-    </section>
-
-    <main class="container">
-        
-        <div class="flashcard" tabindex="0">
-            <div class="card-badge badge-falso">FALSO</div>
-            <div class="card-inner">
-                <div class="card-front">
-                    <span class="card-category">Saúde & Ciência</span>
-                    <p class="headline">"Estudo científico prova que comer chocolate antes de dormir derrete gordura acumulada."</p>
-                    <div class="card-footer">
-                        <span>Análise recente</span>
-                        <span class="flip-hint">Toque/Passe para virar ↺</span>
-                    </div>
-                </div>
-                <div class="card-back falso">
-                    <div class="back-header">
-                        <h2>CONTEÚDO FALSO ✕</h2>
-                    </div>
-                    <p class="explanation">Embora o cacau puro possua antioxidantes benéficos, não há qualquer comprovação de que ingerir chocolate antes de dormir queime calorias. O boato distorceu uma pesquisa isolada sobre metabolismo celular.</p>
-                    <div class="source-info">
-                        Parceiro de Checagem:
-                        <span>Agência Lupa</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flashcard" tabindex="0">
-            <div class="card-badge badge-verdadeiro">VERDADEIRO</div>
-            <div class="card-inner">
-                <div class="card-front">
-                    <span class="card-category">Meio Ambiente</span>
-                    <p class="headline">"Cientistas criam plástico 100% biodegradável utilizando cascas descartadas de camarão."</p>
-                    <div class="card-footer">
-                        <span>Análise recente</span>
-                        <span class="flip-hint">Toque/Passe para virar ↺</span>
-                    </div>
-                </div>
-                <div class="card-back verdadeiro">
-                    <div class="back-header">
-                        <h2>VERDADEIRO ✓</h2>
-                    </div>
-                    <p class="explanation">Pesquisadores de bioengenharia utilizaram a quitosana, extraída da carapaça de crustáceos, para desenvolver um material resistente que se decompõe em poucas semanas na natureza sem deixar resíduos tóxicos.</p>
-                    <div class="source-info">
-                        Parceiro de Checagem:
-                        <span>Aos Fatos</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flashcard" tabindex="0">
-            <div class="card-badge badge-falso">FALSO</div>
-            <div class="card-inner">
-                <div class="card-front">
-                    <span class="card-category">Cidades & Clima</span>
-                    <p class="headline">"Vídeo mostra chuva de peixes caindo do céu em uma cidade do interior após forte tempestade."</p>
-                    <div class="card-footer">
-                        <span>Análise recente</span>
-                        <span class="flip-hint">Toque/Passe para virar ↺</span>
-                    </div>
-                </div>
-                <div class="card-back falso">
-                    <div class="back-header">
-                        <h2>CONTEÚDO FALSO ✕</h2>
-                    </div>
-                    <p class="explanation">O fenômeno de sucção de animais por tornados existe, mas o vídeo em questão foi tirado de contexto: ele mostrava apenas o transbordo de um rio que arrastou peixes para uma pista rodoviária local.</p>
-                    <div class="source-info">
-                        Parceiro de Checagem:
-                        <span>E-Farsas</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <h2 class="section-title">Meus Novos Flashcards de Estudo</h2>
-
-    <main class="container">
-
-        <div class="flashcard" tabindex="0">
-            <div class="card-badge badge-estudo">ESTUDO</div>
-            <div class="card-inner">
-                <div class="card-front">
-                    <span class="card-category">História Geral</span>
-                    <p class="headline">"Quem foi o primeiro imperador oficial de Roma e quando começou seu governo?"</p>
-                    <div class="card-footer">
-                        <span>Cartão de Revisão</span>
-                        <span class="flip-hint">Girar Cartão ↺</span>
-                    </div>
-                </div>
-                <div class="card-back estudo-historia">
-                    <div class="back-header">
-                        <h2>RESPOSTA DA QUESTÃO</h2>
-                    </div>
-                    <p class="explanation">O primeiro imperador romano foi César Augusto (nascido Otávio). Seu governo começou oficialmente no ano 27 a.C., marcando o fim da República Romana e o início do Império.</p>
-                    <div class="source-info">
-                        Fonte de Pesquisa:
-                        <span>Enciclopédia Britânica / Manual Didático</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="flashcard" tabindex="0">
-            <div class="card-badge badge-estudo">ESTUDO</div>
-            <div class="card-inner">
-                <div class="card-front">
-                    <span class="card-category">Ciências & Natureza</span>
-                    <p class="headline">"Qual é a principal função da clorofila encontrada nas células das plantas?"</p>
-                    <div class="card-footer">
-                        <span>Cartão de Revisão</span>
-                        <span class="flip-hint">Girar Cartão ↺</span>
-                    </div>
-                </div>
-                <div class="card-back estudo-ciencia">
-                    <div class="back-header">
-                        <h2>RESPOSTA DA QUESTÃO</h2>
-                    </div>
-                    <p class="explanation">A clorofila é o pigmento responsável por absorver a luz solar para iniciar a fotossíntese. É esse processo que permite às plantas converter água e gás carbônico em energia limpa.</p>
-                    <div class="source-info">
-                        Fonte de Pesquisa:
-                        <span>Revista Galileu / Biologia</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
+    </div>
 
     <footer class="main-footer">
         <div class="footer-container">
@@ -537,30 +620,50 @@
     </footer>
 
     <script>
-        // 1. Lógica do Menu Interativo
+        // 1. Alternador Dinâmico de Abas (Menu Superior)
         const menuItems = document.querySelectorAll('.nav-menu span');
+        const tabContents = document.querySelectorAll('.tab-content');
+
         menuItems.forEach(item => {
             item.addEventListener('click', () => {
-                // Remove a classe ativa de todos
+                // Atualiza o menu visual (classe active)
                 menuItems.forEach(i => i.classList.remove('active'));
-                // Adiciona apenas no item clicado
                 item.classList.add('active');
+
+                // Esconde todas as abas e mostra apenas a selecionada
+                const targetId = item.getAttribute('data-target');
+                tabContents.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
             });
         });
 
-        // 2. Lógica do Modo Claro / Modo Escuro
+        // 2. Alternador de Tema (Modo Claro / Modo Escuro) - Atualizado para carregar no Dark
         const themeToggleBtn = document.getElementById('themeToggle');
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             
-            if (currentTheme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-                themeToggleBtn.innerHTML = '🌓 Modo Escuro';
-            } else {
+            if (currentTheme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 themeToggleBtn.innerHTML = '☀️ Modo Claro';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggleBtn.innerHTML = '🌓 Modo Escuro';
             }
         });
+
+        // 3. Função do Mini-Game Interativo
+        function jogar(respostaDoUsuario) {
+            const campoResultado = document.getElementById('resultadoJogo');
+            if (respostaDoUsuario === false) {
+                campoResultado.style.color = "#10b981";
+                campoResultado.innerHTML = "Acertou! ✕ É Falso. Astronautas confirmam que ela se mistura com o relevo e não dá para ver a olho nu sem lentes especiais.";
+            } else {
+                campoResultado.style.color = "#ef4444";
+                campoResultado.innerHTML = "Errou! ✕ Na verdade é um mito antigo; ela é muito estreita e feita de materiais que se camuflam com o solo ao redor.";
+            }
+        }
     </script>
 
 </body>
